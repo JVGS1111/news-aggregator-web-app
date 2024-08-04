@@ -11,7 +11,16 @@ export function NewsList({ articles }: NewsListProps) {
       return null
     }
     return _articles.map((item, i) => {
-      return <NewsCard article={item} number={i + 1} key={item.title} />
+      return (
+        <a
+          target="_blank"
+          href={item.url!}
+          key={item.title}
+          rel="noopener noreferrer"
+        >
+          <NewsCard article={item} number={item.number ? item.number : i + 1} />
+        </a>
+      )
     })
   }
 

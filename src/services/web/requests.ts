@@ -5,17 +5,35 @@ import { TheNewYorkTimesApiResponse } from '@/@types/the-new-york-times-types'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 export async function getHomeProps() {
-  const newsApiResponse = await fetchNewsFromNewsApi()
-  const theGuardiaResponse = await fetchNewsFromTheGuardianApi()
-  const theNewYorkTimesResponse = await fetchNewsFromTheNewYorkTimesApi()
+  try {
+    // Execute all API calls in parallel
+    const [newsApiResponse, theGuardianResponse, theNewYorkTimesResponse] =
+      await Promise.all([
+        fetchNewsFromNewsApi(),
+        fetchNewsFromTheGuardianApi(),
+        fetchNewsFromTheNewYorkTimesApi(),
+      ])
 
-  const newsArray = [
-    ...parseNewsApiData(newsApiResponse.data),
-    ...parseTheGuardianData(theGuardiaResponse.data),
-    ...parseTheNewYorkTimesDate(theNewYorkTimesResponse.data),
-  ]
+    // processing responses
+    let newsArray = [
+      ...parseNewsApiData(newsApiResponse.data),
+      ...parseTheGuardianData(theGuardianResponse.data),
+      ...parseTheNewYorkTimesDate(theNewYorkTimesResponse.data),
+    ]
 
-  return newsArray
+    // Adds a sequential number to each item
+    newsArray = newsArray.map((item, i) => {
+      return {
+        ...item,
+        number: i + 1,
+      }
+    })
+
+    return newsArray
+  } catch (error) {
+    console.error('Error fetching data from APIs:', error)
+    return []
+  }
 }
 
 async function fetchNewsFromNewsApi(): Promise<
