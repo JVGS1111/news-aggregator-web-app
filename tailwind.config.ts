@@ -20,7 +20,6 @@ const config = {
     extend: {
       fontFamily: {
         sans: ['Roboto'],
-        gupter: ['Gupter'],
       },
       textColor: {
         title: '#1E293B',

@@ -14,7 +14,7 @@ export function NewsFeed({ articles }: NewsFeedProps) {
 
   useEffect(() => {
     initComponent()
-  }, [articles])
+  }, [])
 
   function initComponent() {
     setAllNews(articles.articles)
