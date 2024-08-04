@@ -1,21 +1,31 @@
-export function NewsCard() {
+import { Article } from '@/@types/news-types'
+import dayjs from 'dayjs'
+
+interface NewsCardProps {
+  article: Article
+  number: number
+}
+
+export function NewsCard({ article, number }: NewsCardProps) {
   return (
     <article className="group flex cursor-pointer flex-row justify-start gap-2">
       <div>
-        <span className="text-lg text-title">1.</span>
+        <span className="text-lg text-title">{number}.</span>
       </div>
       <div className="flex flex-col ">
         <h2 className="text-lg text-title group-hover:underline ">
-          Title of the article
+          {article.title}
         </h2>
         <div className="flex gap-1.5">
           <span className="text-xs font-medium text-newsSource">
-            The Guardian
+            {article.source}
           </span>
           <span className="text-xs text-subtitle">-</span>
-          <span className="text-xs text-subtitle">Author of the post</span>
+          <span className="text-xs text-subtitle">{article.author}</span>
           <span className="text-xs text-subtitle">-</span>
-          <span className="text-xs text-subtitle">03/08/2024</span>
+          <span className="text-xs text-subtitle">
+            {dayjs(article.published_at).format('DD/MM/YYYY')}
+          </span>
         </div>
       </div>
     </article>

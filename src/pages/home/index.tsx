@@ -1,18 +1,16 @@
 import { Header } from '@/components/header'
 import { NewsFeed } from './components/news-feed'
-import { useEffect } from 'react'
-import { api } from '@/services/web/api'
+import { NewsFormated } from '@/@types/news-types'
 
-export default function Home() {
-  async function handleGetNews() {
-    await api.get('/news/get-news')
-  }
+interface HomeProps {
+  initProps: NewsFormated
+}
 
+export default function Home({ initProps }: HomeProps) {
   return (
     <>
       <Header />
-      <button onClick={handleGetNews}>chamar</button>
-      {/* <NewsFeed /> */}
+      <NewsFeed articles={initProps} />
     </>
   )
 }

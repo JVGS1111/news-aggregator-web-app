@@ -13,13 +13,15 @@ interface Article {
 }
 
 export interface TheGuardianApiResponse {
-  status: string
-  userTier: string
-  total: number
-  startIndex: number
-  pageSize: number
-  currentPage: number
-  pages: number
-  orderBy: string
-  results: Article[]
+  response: {
+    status: string
+    userTier: string
+    total: number
+    startIndex: number
+    pageSize: number
+    currentPage: number
+    pages: number
+    orderBy: string
+    results: Article[]
+  }
 }
