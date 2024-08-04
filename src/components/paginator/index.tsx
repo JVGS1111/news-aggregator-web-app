@@ -14,7 +14,10 @@ export function Paginator({
   previousAvaliable,
 }: PaginatorProps) {
   return (
-    <div className="flex h-20 flex-row items-center justify-center gap-8 ">
+    <div
+      data-testid="paginator"
+      className="flex h-20 flex-row items-center justify-center gap-8 "
+    >
       <button
         onClick={handlePrevious}
         disabled={!previousAvaliable}
