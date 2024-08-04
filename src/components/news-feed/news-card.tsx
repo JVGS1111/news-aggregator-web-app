@@ -9,7 +9,7 @@ interface NewsCardProps {
 export function NewsCard({ article, number }: NewsCardProps) {
   return (
     <article className="group flex cursor-pointer flex-row justify-start gap-2">
-      <div>
+      <div className="min-w-6">
         <span className="text-lg text-title">{number}.</span>
       </div>
       <div className="flex flex-col ">
