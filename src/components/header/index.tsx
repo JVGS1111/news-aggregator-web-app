@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { HeaderNav } from './nav'
 import SearchButton from './search-button'
 import Logo from '@/assets/Logo.svg'
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import { Dialog, DialogTrigger } from '../ui/dialog'
 import { ModalSearch } from './modal-search'
 
 export function Header() {

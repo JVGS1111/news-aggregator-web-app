@@ -8,7 +8,7 @@ const SearchButton = forwardRef<HTMLButtonElement, SearchButtonProps>(
     return (
       <button
         ref={ref}
-        className="delay-50 flex h-8 w-8 items-center justify-start gap-2.5 rounded-lg border-half border-slate-400 px-2 text-slate-400 transition hover:bg-slate-600 md:w-72"
+        className="delay-50 flex h-8 w-8 items-center justify-start gap-2.5 rounded-lg border-half border-slate-400 px-2 text-slate-400 transition hover:bg-slate-600 xs:w-72"
         {...props}
       >
         <MagnifyingGlass
@@ -16,7 +16,7 @@ const SearchButton = forwardRef<HTMLButtonElement, SearchButtonProps>(
           weight="regular"
           className="text-slate-400"
         />{' '}
-        <span className="hidden md:block">Search</span>
+        <span className="hidden xs:block">Search</span>
       </button>
     )
   },

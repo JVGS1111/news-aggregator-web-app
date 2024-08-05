@@ -13,7 +13,7 @@ import {
 export function SelectCategory() {
   return (
     <Select>
-      <SelectTrigger className="w-[250px]">
+      <SelectTrigger className="w-full xs:max-w-[250px] ">
         <SelectValue placeholder="Select a category" />
       </SelectTrigger>
       <SelectContent>

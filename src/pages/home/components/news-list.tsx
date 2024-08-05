@@ -18,14 +18,14 @@ export function NewsList({ articles }: NewsListProps) {
           key={item.title}
           rel="noopener noreferrer"
         >
-          <NewsCard article={item} number={item.number ? item.number : i + 1} />
+          <NewsCard article={item} number={item.number} />
         </a>
       )
     })
   }
 
   return (
-    <ul className="flex w-full max-w-feed flex-col gap-3 px-6">
+    <ul className="flex w-full max-w-feed flex-col gap-3 ">
       {renderArticles(articles)}
     </ul>
   )

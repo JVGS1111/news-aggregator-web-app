@@ -43,7 +43,7 @@ export function NewsFeed({ articles }: NewsFeedProps) {
   }
 
   return (
-    <section className="mt-16 flex w-full flex-col items-center justify-center pb-6">
+    <section className="mt-16 flex w-full flex-col items-center justify-center px-6 pb-6">
       <NewsList articles={newsFeed} />
       <Paginator
         handleNext={handleNext}
