@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import { HeaderNav } from './nav'
-import { SearchButton } from './search-button'
+import SearchButton from './search-button'
 import Logo from '@/assets/Logo.svg'
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import { ModalSearch } from './modal-search'
 
 export function Header() {
   return (
@@ -12,7 +14,12 @@ export function Header() {
         <HeaderNav />
       </div>
       <div>
-        <SearchButton />
+        <Dialog>
+          <DialogTrigger asChild>
+            <SearchButton />
+          </DialogTrigger>
+          <ModalSearch />
+        </Dialog>
       </div>
     </header>
   )
