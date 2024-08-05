@@ -9,36 +9,50 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { Control, Controller } from 'react-hook-form'
 
-export function DatePicker() {
-  const [date, setDate] = React.useState<Date>()
+interface DatePickerProps {
+  control: Control<any>
+  name: string
+}
 
+export function DatePicker({ control, name }: DatePickerProps) {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={'outline'}
-          className={cn(
-            'w-full justify-start border-slate-600 bg-transparent text-left  font-medium text-slate-600  xs:max-w-[250px] ',
-            !date && 'text-muted-foreground',
-          )}
-        >
-          <CalendarIcon
-            className="mr-2 h-6 w-6 text-slate-600"
-            size={20}
-            weight="light"
-          />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={'outline'}
+              className={cn(
+                'w-full justify-start border-slate-600 bg-transparent text-left  font-medium text-slate-600  xs:max-w-[250px] ',
+                !field.value && 'text-muted-foreground',
+              )}
+            >
+              <CalendarIcon
+                className="mr-2 h-6 w-6 text-slate-600"
+                size={20}
+                weight="light"
+              />
+              {field.value ? (
+                format(field.value, 'PPP')
+              ) : (
+                <span>Pick a date</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0">
+            <Calendar
+              mode="single"
+              selected={field.value}
+              onSelect={field.onChange}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      )}
+    />
   )
 }
