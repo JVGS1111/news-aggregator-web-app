@@ -10,14 +10,6 @@ const config = {
   ],
   prefix: '',
   theme: {
-    screens: {
-      xs: '576px',
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1400px',
-    },
     container: {
       center: true,
       padding: '2rem',
@@ -26,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        xs: '576px',
+      },
       fontFamily: {
         sans: ['Roboto'],
       },
@@ -100,6 +95,9 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+    },
+    data: {
+      checked: 'ui~="checked"',
     },
   },
   plugins: [require('tailwindcss-animate')],
