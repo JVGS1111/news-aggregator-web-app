@@ -1,4 +1,5 @@
 import { Article } from '@/@types/news-types'
+import { shortenText } from '@/services/utils/shorten-text'
 import dayjs from 'dayjs'
 
 interface NewsCardProps {
@@ -15,8 +16,11 @@ export function NewsCard({ article, number }: NewsCardProps) {
         </div>
       )}
       <div className="flex flex-col ">
-        <h2 className="text-lg text-title group-hover:underline ">
-          {article.title}
+        <h2
+          className="text-lg text-title group-hover:underline"
+          data-testid="card-title"
+        >
+          {shortenText(article.title!, 150)}
         </h2>
         <div className="flex gap-1.5">
           <span className="text-xs font-medium text-newsSource">

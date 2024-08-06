@@ -9,11 +9,14 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { api } from '@/services/web/api'
 import { Article } from '@/@types/news-types'
+import { getNewsWithFilter } from '@/services/web/news'
+import { EmptyListMessage } from '../empty-list'
 
 const searchArticlesFormSchema = z.object({
-  keyword: z.string({ required_error: 'Field required' }).min(3),
+  keyword: z
+    .string({ required_error: 'Field required' })
+    .min(3, { message: 'The text is too short' }),
   source: z.string().optional(),
   category: z.string().optional(),
   date: z.date().optional(),
@@ -23,6 +26,7 @@ type SearchArticlesForm = z.infer<typeof searchArticlesFormSchema>
 export function ModalSearch() {
   const [articles, setArticles] = useState<Article[]>([])
   const [showFilters, setShowFilter] = useState(false)
+  const [showEmptyListMessage, setShowEmptyListMessage] = useState(true)
   const {
     register,
     reset,
@@ -40,11 +44,13 @@ export function ModalSearch() {
   })
 
   async function handleSearch(formData: SearchArticlesForm) {
+    if (showEmptyListMessage) setShowEmptyListMessage(false)
     try {
-      const { data } = await api.post('/news/get-news', formData)
+      const { data } = await getNewsWithFilter(formData)
       setArticles(data.articles)
-      // implement empty msg
-      // implement max lenght to title on cards
+      if (data.articles.length === 0) {
+        setShowEmptyListMessage(true)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -57,6 +63,7 @@ export function ModalSearch() {
       keyword: '',
       source: '',
     })
+    setShowEmptyListMessage(false)
   }
 
   function renderFilters() {
@@ -69,6 +76,14 @@ export function ModalSearch() {
         </div>
       )
     }
+    return null
+  }
+
+  function renderEmptyListMessage() {
+    if (showEmptyListMessage) {
+      return <EmptyListMessage text="No news/articles avaliable" />
+    }
+
     return null
   }
 
@@ -86,12 +101,20 @@ export function ModalSearch() {
         <div className="flex w-full flex-col gap-3">
           <div className="flex w-full gap-3">
             <div className="relative w-full">
-              <Input
-                type="text"
-                placeholder="Search"
-                alt="Search input"
-                {...register('keyword')}
-              />
+              <div className="flex w-full flex-col">
+                <Input
+                  type="text"
+                  placeholder="Search"
+                  alt="Search input"
+                  {...register('keyword')}
+                />
+                {errors.keyword && (
+                  <span className="text-sm text-red-600">
+                    {errors.keyword.message}
+                  </span>
+                )}
+              </div>
+
               {isDirty && (
                 <button
                   type="button"
@@ -129,6 +152,7 @@ export function ModalSearch() {
           {renderFilters()}
         </div>
       </form>
+      {renderEmptyListMessage()}
       <ul className="max-h-[400px] overflow-auto">
         <NewsList articles={articles} />
       </ul>

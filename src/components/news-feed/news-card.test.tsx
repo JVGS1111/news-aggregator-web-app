@@ -33,4 +33,23 @@ describe('News Card component', () => {
 
     expect(date).toBeInTheDocument()
   })
+
+  it('should cut the title if it is to long', () => {
+    mockArticle.title =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec sapien tortor. Cras eu gravida augue. Cras dictum dolor id urna dictum, eget scelerisque nibh tempor. Integer vestibulum nisi id lectus euismod dignissim. Integer lobortis, diam et lobortis tempor, erat magna aliquet lectus, eu dapibus urna ex sit amet dolor. Nulla facilisi. Curabitur non convallis ex. Proin in cursus ligula.'
+    // 60 words
+    render(<NewsCard number={1} article={mockArticle} />)
+    const title = screen.getByTestId('card-title')
+
+    expect(title.innerHTML.length).toBe(150)
+  })
+
+  it('should not cut the title if it is not to long', () => {
+    mockArticle.title = 'Lorem ipsum dolor sit mi.'
+    // 25 caracters
+    render(<NewsCard number={1} article={mockArticle} />)
+    const title = screen.getByTestId('card-title')
+
+    expect(title.innerHTML.length).toBe(25)
+  })
 })
