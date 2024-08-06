@@ -39,3 +39,24 @@ export interface TheNewYorkTimesApiResponse {
   num_results: number
   results: Result[]
 }
+
+export interface GetNewsFromTNYTApiResponse {
+  response: {
+    docs: {
+      abstract: string
+      web_url: string
+      snippet: string
+      lead_paragraph: string
+      print_section: string
+      print_page: string
+      source: string
+      pub_date: string
+      document_type: string
+      new_desk: string
+      section_name: string
+      byline: {
+        original: string
+      }
+    }[]
+  }
+}

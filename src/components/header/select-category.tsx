@@ -42,9 +42,9 @@ export function SelectCategory({ control, name }: SelectCategoryProps) {
               <SelectItem value="food">Food</SelectItem>
               <SelectItem value="health">Health</SelectItem>
               <SelectItem value="movies">Movies</SelectItem>
-              <SelectItem value="olympics">Olympics</SelectItem>
+              <SelectItem value="music">Music</SelectItem>
               <SelectItem value="style">Style</SelectItem>
-              <SelectItem value="science">Science</SelectItem>
+              <SelectItem value="culture">Culture</SelectItem>
               <SelectItem value="technology">Technology</SelectItem>
             </SelectGroup>
           </SelectContent>

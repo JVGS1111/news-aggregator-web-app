@@ -9,6 +9,8 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
+import { api } from '@/services/web/api'
+import { Article } from '@/@types/news-types'
 
 const searchArticlesFormSchema = z.object({
   keyword: z.string({ required_error: 'Field required' }).min(3),
@@ -19,6 +21,7 @@ const searchArticlesFormSchema = z.object({
 type SearchArticlesForm = z.infer<typeof searchArticlesFormSchema>
 
 export function ModalSearch() {
+  const [articles, setArticles] = useState<Article[]>([])
   const [showFilters, setShowFilter] = useState(false)
   const {
     register,
@@ -37,7 +40,14 @@ export function ModalSearch() {
   })
 
   async function handleSearch(formData: SearchArticlesForm) {
-    console.log(formData)
+    try {
+      const { data } = await api.post('/news/get-news', formData)
+      setArticles(data.articles)
+      // implement empty msg
+      // implement max lenght to title on cards
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function resetForm() {
@@ -95,7 +105,8 @@ export function ModalSearch() {
 
             <button
               type="submit"
-              className="flex aspect-square h-9 items-center justify-center rounded-md bg-slate-700 hover:bg-slate-600"
+              className="flex aspect-square h-9 items-center justify-center rounded-md bg-slate-700 hover:bg-slate-600 disabled:opacity-50"
+              disabled={isSubmitting}
             >
               <MagnifyingGlass
                 weight="regular"
@@ -119,17 +130,7 @@ export function ModalSearch() {
         </div>
       </form>
       <ul className="max-h-[400px] overflow-auto">
-        <NewsList
-          articles={[
-            {
-              author: 'test',
-              published_at: new Date().toISOString(),
-              source: 'TESTE',
-              title: 'test',
-              url: 'https://translate.google.com/?sl=pt&tl=en&op=translate',
-            },
-          ]}
-        />
+        <NewsList articles={articles} />
       </ul>
     </DialogContent>
   )

@@ -25,3 +25,6 @@ export interface TheGuardianApiResponse {
     results: Article[]
   }
 }
+
+export interface GetNewsFromTheGuardianApiResponse
+  extends TheGuardianApiResponse {}

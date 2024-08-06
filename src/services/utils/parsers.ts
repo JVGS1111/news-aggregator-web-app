@@ -1,7 +1,10 @@
 import { Article } from '@/@types/news-types'
 import { OpenNewsApiResponse } from '@/@types/open-news-types'
 import { TheGuardianApiResponse } from '@/@types/the-guardian-types'
-import { TheNewYorkTimesApiResponse } from '@/@types/the-new-york-times-types'
+import {
+  GetNewsFromTNYTApiResponse,
+  TheNewYorkTimesApiResponse,
+} from '@/@types/the-new-york-times-types'
 
 export function parseNewsApiData(newsApiRes: OpenNewsApiResponse): Article[] {
   if (!newsApiRes || newsApiRes.articles.length === 0) {
@@ -42,7 +45,7 @@ export function parseTheGuardianData(
   return parsedArticles
 }
 
-export function parseTheNewYorkTimesDate(
+export function parseTheNewYorkTimesTrendNews(
   theNYTRes: TheNewYorkTimesApiResponse,
 ): Article[] {
   if (!theNYTRes || theNYTRes.results.length === 0) {
@@ -55,6 +58,25 @@ export function parseTheNewYorkTimesDate(
       source: 'The New Times',
       title: item.title,
       url: item.url,
+    }
+  })
+
+  return parsedArtices
+}
+
+export function parseGetNewsFromTNYTApiResponse(
+  theNYTRes: GetNewsFromTNYTApiResponse,
+) {
+  if (!theNYTRes || theNYTRes.response.docs.length === 0) {
+    return []
+  }
+  const parsedArtices: Article[] = theNYTRes.response.docs.map((item) => {
+    return {
+      author: item.byline.original,
+      published_at: item.pub_date,
+      source: 'The New York Times',
+      title: item.abstract,
+      url: item.web_url,
     }
   })
 

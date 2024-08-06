@@ -2,7 +2,7 @@ import { OpenNewsApiResponse } from '@/@types/open-news-types'
 import {
   parseNewsApiData,
   parseTheGuardianData,
-  parseTheNewYorkTimesDate,
+  parseTheNewYorkTimesTrendNews,
 } from './parsers'
 import { Article } from '@/@types/news-types'
 import { TheGuardianApiResponse } from '@/@types/the-guardian-types'
@@ -137,13 +137,15 @@ describe('parseTheGuardianData', () => {
   })
 })
 
-describe('parseTheNewYorkTimesDate', () => {
+describe('parseTheNewYorkTimesTrendNews', () => {
   it('should return an empty array if theNYTRes is null or has no results', () => {
     expect(
-      parseTheNewYorkTimesDate(null as unknown as TheNewYorkTimesApiResponse),
+      parseTheNewYorkTimesTrendNews(
+        null as unknown as TheNewYorkTimesApiResponse,
+      ),
     ).toEqual([])
     expect(
-      parseTheNewYorkTimesDate({
+      parseTheNewYorkTimesTrendNews({
         status: 'ok',
         copyright: '© 2024 The New York Times Company',
         section: 'world',
@@ -196,6 +198,6 @@ describe('parseTheNewYorkTimesDate', () => {
       },
     ]
 
-    expect(parseTheNewYorkTimesDate(theNYTRes)).toEqual(expectedOutput)
+    expect(parseTheNewYorkTimesTrendNews(theNYTRes)).toEqual(expectedOutput)
   })
 })
