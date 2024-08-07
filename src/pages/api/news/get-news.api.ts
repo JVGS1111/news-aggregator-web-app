@@ -58,7 +58,7 @@ async function getArticlesFromSource(req: NextApiRequest) {
     case 'the_new_york_times':
       const theNewYorkTimesResponse = await getNewsFromTNYTApi({
         q: keyword,
-        category: category ? categoryMapping[category].tnyt : undefined,
+        categories: category ? [categoryMapping[category].tnyt] : [],
         from: date ? format(date, 'yyyyMMdd') : undefined,
         to: date ? format(date, 'yyyyMMdd') : undefined,
       })
@@ -102,6 +102,7 @@ async function getNewsFromAllSources(req: NextApiRequest) {
       await Promise.all([
         getNewsFromNewsApi({
           q: `${keyword},${category}`,
+          categories: [category],
           from: date ? format(date, 'yyyy-MM-dd') : undefined,
           to: date ? format(date, 'yyyy-MM-dd') : undefined,
         }),
@@ -113,7 +114,7 @@ async function getNewsFromAllSources(req: NextApiRequest) {
         }),
         getNewsFromTNYTApi({
           q: keyword,
-          category: category ? categoryMapping[category].tnyt : undefined,
+          categories: category ? [categoryMapping[category].tnyt] : [],
           from: date ? format(date, 'yyyyMMdd') : undefined,
           to: date ? format(date, 'yyyyMMdd') : undefined,
         }),

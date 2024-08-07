@@ -10,7 +10,7 @@ export function NewsList({ articles }: NewsListProps) {
     if (!_articles) {
       return null
     }
-    return _articles.map((item, i) => {
+    return _articles.map((item) => {
       return (
         <a
           target="_blank"

@@ -1,4 +1,6 @@
 import { Input } from '@/components/ui/input'
+import { authorsKey } from '@/services/storage/keys'
+import { StorageUserAuthors } from '@/services/storage/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Plus, X } from 'phosphor-react'
 import { useEffect, useState } from 'react'
@@ -9,9 +11,6 @@ const authorsFormSchema = z.object({
   author: z.string().min(3, { message: 'Author name is too short' }),
 })
 
-interface Authors {
-  authors: string[]
-}
 type AuthorForm = z.infer<typeof authorsFormSchema>
 export function AuthorForm() {
   const [authors, setAuthors] = useState<string[]>([])
@@ -31,14 +30,14 @@ export function AuthorForm() {
   function getInitialStates() {
     // getting preferences from localstorage and setting in the form
 
-    const storageAuthors: Authors = getStorage()
+    const storageAuthors: StorageUserAuthors = getStorage()
     if (storageAuthors && storageAuthors.authors) {
       setAuthors(storageAuthors.authors)
     }
   }
 
   function getStorage() {
-    const json = localStorage.getItem('@NEWS_AGREGGATOR:AUTHORS')
+    const json = localStorage.getItem(authorsKey)
     if (!json) {
       return false
     }
@@ -54,7 +53,7 @@ export function AuthorForm() {
       return
     }
     const storage = getStorage()
-    const newAuthors: Authors = {
+    const newAuthors: StorageUserAuthors = {
       authors: [author.author],
     }
     if (storage) {
@@ -66,8 +65,8 @@ export function AuthorForm() {
     addNewAuthorToState(author.author)
   }
 
-  function storageAuthors(value: Authors) {
-    localStorage.setItem('@NEWS_AGREGGATOR:AUTHORS', JSON.stringify(value))
+  function storageAuthors(value: StorageUserAuthors) {
+    localStorage.setItem(authorsKey, JSON.stringify(value))
   }
 
   function addNewAuthorToState(author: string) {
@@ -77,7 +76,7 @@ export function AuthorForm() {
   }
 
   function handleDeleteAuthor(author: string) {
-    const newAuthors: Authors = {
+    const newAuthors: StorageUserAuthors = {
       authors: [],
     }
     const filteredAuthors = authors.filter((auth) => auth !== author)

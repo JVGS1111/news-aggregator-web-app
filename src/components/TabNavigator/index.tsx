@@ -6,7 +6,7 @@ interface NavigatorProps {
   defaultValue?: string
 }
 
-export function Navigator({
+export function TabNavigator({
   onChange,
   options,
   defaultValue = '',

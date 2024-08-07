@@ -10,3 +10,9 @@ export type Article = {
 export interface NewsFormated {
   articles: Article[]
 }
+
+export interface Filters {
+  categories: string[]
+  sources: string[]
+  authors: string[]
+}

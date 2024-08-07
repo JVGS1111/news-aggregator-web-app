@@ -52,35 +52,7 @@ async function getTrendNewsFromNewsApi(): Promise<
   const res = await axios.get(`https://newsapi.org/v2/top-headlines`, {
     params: {
       apiKey: process.env.NEWS_API_API_KEY,
-      country: [
-        'at',
-        'be',
-        'bg',
-        'ch',
-        'cz',
-        'de',
-        'fr',
-        'gb',
-        'gr',
-        'hu',
-        'ie',
-        'it',
-        'lt',
-        'lv',
-        'nl',
-        'no',
-        'pl',
-        'pt',
-        'ro',
-        'rs',
-        'ru',
-        'se',
-        'si',
-        'sk',
-        'tr',
-        'ua',
-        'us',
-      ],
+      country: ['us'],
     },
   })
   return res
@@ -115,9 +87,11 @@ async function getTrendNewsFromTheNewYorkTimesApi(): Promise<
 }
 
 export interface GetNewsFromNewsApiProps {
-  q: string
+  q?: string
   from?: string
   to?: string
+  categories?: string[]
+  authors?: string[]
   pageSize?: number
 }
 
@@ -125,19 +99,40 @@ export async function getNewsFromNewsApi({
   q,
   from,
   to,
+  authors,
+  categories,
   pageSize = 20,
 }: GetNewsFromNewsApiProps): Promise<
   AxiosResponse<OpenNewsApiResponse, AxiosError>
 > {
-  const params: Record<string, string | number> = {
+  let query = encodeURIComponent(q || 'news')
+
+  if (categories && categories.length > 0) {
+    query +=
+      ' AND ' +
+      categories.map((cat) => `(${encodeURIComponent(cat)})`).join(' OR ')
+  }
+
+  if (authors && authors.length > 0) {
+    query +=
+      ' AND ' +
+      authors
+        .map((author) => `author:(${encodeURIComponent(author)})`)
+        .join(' OR ')
+  }
+
+  query = query.replace(/ (AND|OR|) $/, '')
+
+  const params: Record<string, string> = {
     apiKey: process.env.NEWS_API_API_KEY!,
-    q,
+    q: query,
+    sortBy: 'publishedAt',
   }
 
   if (from) params.from = from
   if (to) params.to = to
-  if (pageSize) params.pageSize = pageSize
-
+  if (pageSize) params.pageSize = pageSize.toString()
+  params.language = 'en'
   const res = await axios.get(`https://newsapi.org/v2/everything`, {
     params,
   })
@@ -166,7 +161,8 @@ export async function getNewsFromTheGuardiaApi({
     q,
   }
   if (from) params['from-date'] = from
-  if (to) params.to = to
+  if (from && to) params.to = to
+  if (!from) params['order-by'] = 'newest'
   if (category) params.section = category
   if (pageSize) params['page-size'] = pageSize
 
@@ -177,29 +173,36 @@ export async function getNewsFromTheGuardiaApi({
 }
 
 export interface GetNewsFromTNYTApiProps {
-  q: string
+  q?: string
   from?: string
   to?: string
-  category?: string
+  categories?: string[]
+  authors?: string[]
 }
 
 export async function getNewsFromTNYTApi({
   q,
   from,
   to,
-  category,
+  categories,
+  authors,
 }: GetNewsFromTNYTApiProps): Promise<
   AxiosResponse<GetNewsFromTNYTApiResponse, AxiosError>
 > {
   const params: Record<string, string> = {
     'api-key': process.env.THE_NEW_YORK_TIMES_API_KEY!,
-    q,
   }
 
+  if (q) params.q = q
   if (from) params.begin_date = from.replace(/-/g, '')
   if (to) params.end_date = to.replace(/-/g, '')
-  if (category) params.fq = `section_name:("${category}")`
-
+  if (categories && categories.length > 0)
+    params.fq = `section_name:(${categories.map((category) => `"${category}"`).join(' ')})`
+  if (authors && authors.length > 0) {
+    params.fq =
+      (params.fq ? params.fq + ' AND ' : '') +
+      `byline:(${authors.map((author) => `"${author}"`).join(' ')})`
+  }
   const res = await axios.get(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json`,
     {

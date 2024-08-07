@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { preferencesKey } from '@/services/storage/keys'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -59,7 +60,7 @@ export function CategorySourceForm() {
 
   function getInitialStates() {
     // getting preferences from localstorage and setting in the form
-    const json = localStorage.getItem('@NEWS_AGREGGATOR:PREFERENCES')
+    const json = localStorage.getItem(preferencesKey)
     if (!json) {
       return
     }
@@ -71,7 +72,7 @@ export function CategorySourceForm() {
 
   function handleSavePreferences(pref: PreferencesForm) {
     // saving preferences on localstorage
-    localStorage.setItem('@NEWS_AGREGGATOR:PREFERENCES', JSON.stringify(pref))
+    localStorage.setItem(preferencesKey, JSON.stringify(pref))
     reset(pref, { keepDirty: false })
   }
 
