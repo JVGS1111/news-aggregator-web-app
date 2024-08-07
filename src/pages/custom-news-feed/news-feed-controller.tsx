@@ -1,38 +1,12 @@
-import { Article, Filters, NewsFormated } from '@/@types/news-types'
+import { Filters, NewsFormated } from '@/@types/news-types'
 import { authorsKey, preferencesKey } from '@/services/storage/keys'
-import { useEffect } from 'react'
 import { NewsList } from '../home/components/news-list'
 import {
   StorageUserAuthors,
   StorageUserPreferences,
 } from '@/services/storage/types'
-import { api } from '@/services/web/api'
 import { getUserNewsFeed } from '@/services/web/news'
 import { useQuery } from '@tanstack/react-query'
-
-const mockArticle: Article[] = [
-  {
-    author: 'test author',
-    published_at: new Date().toISOString(),
-    source: 'text source',
-    title: 'test title',
-    url: 'test url',
-  },
-  {
-    author: 'test author',
-    published_at: new Date().toISOString(),
-    source: 'text source',
-    title: 'test title',
-    url: 'test url',
-  },
-  {
-    author: 'test author',
-    published_at: new Date().toISOString(),
-    source: 'text source',
-    title: 'test title',
-    url: 'test url',
-  },
-]
 
 export function NewsFeedController() {
   // useEffect(() => {
@@ -76,7 +50,7 @@ export function NewsFeedController() {
 
   const filters = getUserPreferences()
 
-  const { data, error, isLoading } = useQuery<NewsFormated>({
+  const { data } = useQuery<NewsFormated>({
     queryKey: ['userNewsFeed', filters],
     queryFn: async () => {
       const { data } = await getUserNewsFeed(filters)
