@@ -1,3 +1,4 @@
+'use client'
 import { Header } from '@/components/header'
 import Head from 'next/head'
 import { Container } from './container'

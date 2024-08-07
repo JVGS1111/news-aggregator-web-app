@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { preferencesKey } from '@/services/storage/keys'
@@ -60,7 +61,10 @@ export function CategorySourceForm() {
 
   function getInitialStates() {
     // getting preferences from localstorage and setting in the form
-    const json = localStorage.getItem(preferencesKey)
+    if (typeof window === 'undefined') {
+      return
+    }
+    const json = window.localStorage.getItem(preferencesKey)
     if (!json) {
       return
     }
@@ -72,7 +76,10 @@ export function CategorySourceForm() {
 
   function handleSavePreferences(pref: PreferencesForm) {
     // saving preferences on localstorage
-    localStorage.setItem(preferencesKey, JSON.stringify(pref))
+    if (typeof window === 'undefined') {
+      return
+    }
+    window.localStorage.setItem(preferencesKey, JSON.stringify(pref))
     reset(pref, { keepDirty: false })
   }
 

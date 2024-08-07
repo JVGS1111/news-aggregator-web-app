@@ -1,3 +1,4 @@
+'use client'
 import { Input } from '@/components/ui/input'
 import { authorsKey } from '@/services/storage/keys'
 import { StorageUserAuthors } from '@/services/storage/types'
@@ -37,6 +38,9 @@ export function AuthorForm() {
   }
 
   function getStorage() {
+    if (typeof window === 'undefined') {
+      return
+    }
     const json = localStorage.getItem(authorsKey)
     if (!json) {
       return false
@@ -49,6 +53,7 @@ export function AuthorForm() {
 
   function handleSaveAuthor(author: AuthorForm) {
     // saving preferences on localstorage
+
     if (authors.includes(author.author)) {
       return
     }
@@ -66,6 +71,9 @@ export function AuthorForm() {
   }
 
   function storageAuthors(value: StorageUserAuthors) {
+    if (typeof localStorage === 'undefined') {
+      return
+    }
     localStorage.setItem(authorsKey, JSON.stringify(value))
   }
 

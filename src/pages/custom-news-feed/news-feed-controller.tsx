@@ -1,3 +1,4 @@
+'use client'
 import { Filters, NewsFormated } from '@/@types/news-types'
 import { authorsKey, preferencesKey } from '@/services/storage/keys'
 import { NewsList } from '../home/components/news-list'
@@ -9,16 +10,19 @@ import { getUserNewsFeed } from '@/services/web/news'
 import { useQuery } from '@tanstack/react-query'
 
 export function NewsFeedController() {
-  // useEffect(() => {
-  //   getUserPreferences()
-  // }, [])
-
   function getUserPreferences() {
-    const preferences = localStorage.getItem(preferencesKey)
-    const authors = localStorage.getItem(authorsKey)
-    const filters: Filters = createFilterObject(preferences, authors)
-    return filters
-    // fetchAticles(filters)
+    if (typeof window === 'undefined') {
+      return {
+        categories: [],
+        sources: [],
+        authors: [],
+      }
+    } else {
+      const preferences = localStorage.getItem(preferencesKey)
+      const authors = localStorage.getItem(authorsKey)
+      const filters: Filters = createFilterObject(preferences, authors)
+      return filters
+    }
   }
 
   function createFilterObject(
