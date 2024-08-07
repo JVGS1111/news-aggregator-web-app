@@ -1,8 +1,8 @@
-News Agreggator
+## News Aggregator
 
 ## About
 
-- [News Agreggator](https://news-aggregator-web-app.vercel.app/) is a project that aggregates news from various places in one place, made with love, nextJs and Tailwindcss.
+- [News Aggregator](https://news-aggregator-web-app.vercel.app/) is a project that aggregates news from various places in one place, made with love, nextJs and Tailwindcss.
 The project has Lint and also uses Prettier to format Tailwindcss classes. Install the extensions to get the most out of it.
 
 ## Getting Started
@@ -13,14 +13,14 @@ First, you will need to get 3 api keys, they are from:
 - [News Api](https://newsapi.org/)
 - [The Guardian API](https://open-platform.theguardian.com/)
 
-Get these key and create a .env at the root of the project
+Get these key and create a .env at the root of the project,
 there is a .env.example at the root.
 
-to run the project you will need to have [Dockcer](https://www.docker.com/) installed 
+to run the project you will need to have [Docker](https://www.docker.com/) installed .
 
 execute to create the container:
 ```bash
-docker build -t news-agreggator .
+docker build -t news-aggregator .
 ```
 than execute this to run the container for the first time:
 ```bash
@@ -44,7 +44,7 @@ The most recent posts from each provider are displayed on the home page, they we
 ![Home](assets/home.png)
 
 By clicking on the header search bar you can search for an article.
-![Dialog](dialog/dialog.png)
+![Dialog](assets/dialog.png)
 
 By clicking on the 'News Feed' tab you will be redirected to the user's feed. The user can edit preferences on this screen.
 ![Dialog](assets/news_feed.png)

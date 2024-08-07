@@ -12,7 +12,7 @@ export function Header() {
       data-testid="header"
     >
       <div className="flex flex-row items-center gap-2">
-        <Image alt="News Agreggator" src={Logo} />
+        <Image alt="News Aggregator" src={Logo} />
         <div className="h-full w-[1px] bg-white "></div>
         <HeaderNav />
       </div>

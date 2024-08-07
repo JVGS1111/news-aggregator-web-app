@@ -11,7 +11,7 @@ export default function Home({ initProps }: HomeProps) {
   return (
     <>
       <Head>
-        <title>Home | News Agreggator</title>
+        <title>Home | News Aggregator</title>
       </Head>
       <Header />
       <NewsFeed articles={initProps} />

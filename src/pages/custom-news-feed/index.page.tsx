@@ -7,7 +7,7 @@ export default function CustomNewsFeed() {
   return (
     <>
       <Head>
-        <title>feed | News Agreggator</title>
+        <title>feed | News Aggregator</title>
       </Head>
       <Header />
       <Container />
