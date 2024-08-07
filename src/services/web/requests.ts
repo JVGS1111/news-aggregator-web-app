@@ -203,6 +203,7 @@ export async function getNewsFromTNYTApi({
       (params.fq ? params.fq + ' AND ' : '') +
       `byline:(${authors.map((author) => `"${author}"`).join(' ')})`
   }
+  params.sort = 'newest'
   const res = await axios.get(
     `https://api.nytimes.com/svc/search/v2/articlesearch.json`,
     {
