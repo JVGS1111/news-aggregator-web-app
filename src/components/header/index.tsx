@@ -7,7 +7,10 @@ import { ModalSearch } from './modal-search'
 
 export function Header() {
   return (
-    <header className="flex h-16 w-full justify-between bg-header px-6 py-4">
+    <header
+      className="flex h-16 w-full justify-between bg-header px-6 py-4"
+      data-testid="header"
+    >
       <div className="flex flex-row items-center gap-2">
         <Image alt="News Agreggator" src={Logo} />
         <div className="h-full w-[1px] bg-white "></div>
@@ -16,7 +19,7 @@ export function Header() {
       <div>
         <Dialog>
           <DialogTrigger asChild>
-            <SearchButton />
+            <SearchButton data-testid="dialog-button" />
           </DialogTrigger>
           <ModalSearch />
         </Dialog>

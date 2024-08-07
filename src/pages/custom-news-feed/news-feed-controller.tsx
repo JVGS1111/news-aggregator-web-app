@@ -54,7 +54,7 @@ export function NewsFeedController() {
 
   const filters = getUserPreferences()
 
-  const { data } = useQuery<NewsFormated>({
+  const { data, isLoading } = useQuery<NewsFormated>({
     queryKey: ['userNewsFeed', filters],
     queryFn: async () => {
       const { data } = await getUserNewsFeed(filters)
@@ -64,8 +64,11 @@ export function NewsFeedController() {
   })
 
   return (
-    <div className="w-full  py-3">
+    <div className="w-full py-3">
       <NewsList articles={data?.articles || []}></NewsList>
+      {isLoading && (
+        <span className="text-slate-600">Loading more articles...</span>
+      )}
     </div>
   )
 }

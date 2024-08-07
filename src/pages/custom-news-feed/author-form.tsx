@@ -117,6 +117,7 @@ export function AuthorForm() {
           />
           <button
             type="submit"
+            data-testid="add-author"
             className="flex aspect-square h-9 items-center justify-center rounded-md bg-slate-700 hover:bg-slate-600 disabled:opacity-50"
           >
             <Plus weight="regular" className="h-5 w-5 text-slate-50" />
@@ -128,6 +129,7 @@ export function AuthorForm() {
         <div className="flex flex-row flex-wrap gap-3">
           {authors.map((aut) => (
             <button
+              data-testid="author-badger"
               key={aut}
               className="flex items-center justify-center gap-2 truncate rounded-full border border-slate-700 px-2.5 py-1 text-sm"
               type="button"

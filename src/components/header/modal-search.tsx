@@ -26,7 +26,7 @@ type SearchArticlesForm = z.infer<typeof searchArticlesFormSchema>
 export function ModalSearch() {
   const [articles, setArticles] = useState<Article[]>([])
   const [showFilters, setShowFilter] = useState(false)
-  const [showEmptyListMessage, setShowEmptyListMessage] = useState(true)
+  const [showEmptyListMessage, setShowEmptyListMessage] = useState(false)
   const {
     register,
     reset,
@@ -88,7 +88,7 @@ export function ModalSearch() {
   }
 
   return (
-    <DialogContent>
+    <DialogContent aria-describedby="search article dialog">
       <DialogHeader>
         <DialogTitle className="text-center text-xl font-medium text-title">
           Search for your article
