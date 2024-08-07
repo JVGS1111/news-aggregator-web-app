@@ -100,7 +100,7 @@ export function CategorySourceForm() {
                 control={control}
                 name="categories"
                 render={({ field }) => (
-                  <label className="items-cente flex flex-row gap-2">
+                  <label className="flex flex-row items-center gap-2">
                     <Checkbox
                       checked={field.value?.includes(category.id)}
                       onCheckedChange={(checked) => {
