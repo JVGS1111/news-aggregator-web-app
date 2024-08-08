@@ -1,11 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { useQuery } from '@tanstack/react-query'
 import { NewsFeedController } from './news-feed-controller'
-import { getUserNewsFeed } from '@/services/web/news'
 import { preferencesKey, authorsKey } from '@/services/storage/keys'
 import { Article, NewsFormated } from '@/@types/news-types'
 
-// Mock do useQuery e da função de requisição de dados
+// useQuery and requests mock
 jest.mock('@tanstack/react-query', () => ({
   useQuery: jest.fn(),
 }))
