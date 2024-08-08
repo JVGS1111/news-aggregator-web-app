@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { HeaderNav } from './nav'
+import { HeaderNav } from './header-nav'
 import SearchButton from './search-button'
 import Logo from '@/assets/Logo.svg'
 import { Dialog, DialogTrigger } from '../ui/dialog'

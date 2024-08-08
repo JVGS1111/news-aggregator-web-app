@@ -69,7 +69,10 @@ export function ModalSearch() {
   function renderFilters() {
     if (showFilters) {
       return (
-        <div className="flex w-full flex-col items-center justify-center gap-3 xs:flex-row xs:justify-start">
+        <div
+          data-testid="filters"
+          className="flex w-full flex-col items-center justify-center gap-3 xs:flex-row xs:justify-start"
+        >
           <DatePicker control={control} name="date" />
           <SelectCategory control={control} name="category" />
           <SelectSource control={control} name="source" />
@@ -117,6 +120,7 @@ export function ModalSearch() {
 
               {isDirty && (
                 <button
+                  data-testid="clear_form"
                   type="button"
                   onClick={resetForm}
                   className="absolute right-0 top-0 flex aspect-square h-9 items-center justify-center  text-blue-600"
@@ -127,6 +131,8 @@ export function ModalSearch() {
             </div>
 
             <button
+              data-testid="submit_btn"
+              name="submit"
               type="submit"
               className="flex aspect-square h-9 items-center justify-center rounded-md bg-slate-700 hover:bg-slate-600 disabled:opacity-50"
               disabled={isSubmitting}
@@ -142,6 +148,7 @@ export function ModalSearch() {
               }}
               type="button"
               className="flex aspect-square h-9 items-center justify-center rounded-md bg-slate-700 hover:bg-slate-600"
+              data-testid="open_close_filters"
             >
               <SlidersHorizontal
                 weight="regular"
