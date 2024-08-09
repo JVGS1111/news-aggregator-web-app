@@ -2,7 +2,7 @@
 
 ## About
 
-- [News Aggregator](https://news-aggregator-web-app.vercel.app/) is a project that aggregates news from various places in one place, made with love, nextJs and Tailwindcss.
+- [News Aggregator](https://news-aggregator-web-app.vercel.app/) is a project that aggregates news from various places in one place, made with love, NextJS and Tailwindcss.
 The project has Lint and also uses Prettier to format Tailwindcss classes. Install the extensions to get the most out of it.
 
 ## Getting Started
@@ -13,7 +13,7 @@ First, you will need to get 3 api keys, they are from:
 - [News Api](https://newsapi.org/)
 - [The Guardian API](https://open-platform.theguardian.com/)
 
-Get these key and create a .env at the root of the project,
+Get these keys and create a .env at the root of the project,
 there is a .env.example at the root.
 
 to run the project you will need to have [Docker](https://www.docker.com/) installed .
@@ -31,11 +31,16 @@ if you want to run the project for the second time run:
 docker compose up
 ```
 
-## Tests
+## Tests - unit/e2e
 
-There are some unit test, if you want to run them, execute:
+There are some unit tests, if you want to run them, execute:
 ```bash
 npm run test
+```
+
+The e2e tests were done with Playwright. They were already installed with Docker. Access with:
+```bash
+http://localhost:3333/
 ```
 
 ## Overview
